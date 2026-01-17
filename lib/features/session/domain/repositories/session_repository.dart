@@ -15,6 +15,7 @@ abstract class SessionRepository {
   
   // Camera zoom (Provider only)
   Future<void> applyZoom(double delta);
+  Future<void> setZoomLevel(double level); // Absolute zoom control
   
   // Gestures (Consumer -> Provider)
   Future<void> sendGestureCommand(Map<String, dynamic> command);

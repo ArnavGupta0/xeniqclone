@@ -90,7 +90,7 @@ class LiveControlService {
     sendCommand(callId, CommandType.ZOOM_OUT);
   }
 
-  /// Send zoom delta command (for slider)
+  /// Send zoom delta command (for slider) - DEPRECATED, use sendCameraState
   /// Uses ZOOM_IN type with value field for delta amount
   void sendZoomDelta(String callId, double delta) {
     if (_outputController == null || _outputController!.isClosed) {
@@ -109,6 +109,35 @@ class LiveControlService {
       command: CameraCommand(
         type: type,
         value: delta.abs(), // Store absolute delta in value field
+      ),
+    ));
+  }
+
+  /// Send complete camera state (replaces zoom delta spam)
+  /// This is the preferred method for synchronized camera control
+  void sendCameraState(String callId, {
+    required double zoomLevel,
+    required double anchorX,
+    required double anchorY,
+    required bool isGyroMode,
+  }) {
+    if (_outputController == null || _outputController!.isClosed) {
+      debugPrint('❌ [CONTROL] Cannot send state - stream not open');
+      return;
+    }
+    
+    debugPrint('📐 [CONTROL] Sending state: zoom=$zoomLevel anchor=($anchorX,$anchorY) mode=${isGyroMode ? "GYRO" : "BUTTON"}');
+    
+    _outputController!.add(ControlEvent(
+      callId: callId,
+      senderId: 'consumer-$callId',
+      state: CameraState(
+        zoomLevel: zoomLevel,
+        anchorX: anchorX,
+        anchorY: anchorY,
+        mode: isGyroMode 
+          ? ControlModeType.CONTROL_MODE_GYRO 
+          : ControlModeType.CONTROL_MODE_BUTTON,
       ),
     ));
   }
@@ -132,6 +161,43 @@ class LiveControlService {
     ));
   }
 
+  /// Send gyroscope orientation for guidance mode
+  /// yaw and pitch are normalized to [-1, +1] range
+  void sendGyroOrientation(String callId, double yaw, double pitch) {
+    if (_outputController == null || _outputController!.isClosed) {
+      debugPrint('❌ [CONTROL] Cannot send gyro - stream not open');
+      return;
+    }
+    
+    // Use GyroData message to send yaw/pitch values
+    _outputController!.add(ControlEvent(
+      callId: callId,
+      senderId: 'consumer-$callId',
+      gyro: GyroData(
+        yaw: yaw,
+        pitch: pitch,
+      ),
+    ));
+  }
+
+  /// Send gyroscope reset (recenter) command
+  void sendGyroReset(String callId) {
+    if (_outputController == null || _outputController!.isClosed) {
+      debugPrint('❌ [CONTROL] Cannot send gyro reset - stream not open');
+      return;
+    }
+    
+    debugPrint('📤 [CONTROL] Sending GYRO_RESET');
+    
+    _outputController!.add(ControlEvent(
+      callId: callId,
+      senderId: 'consumer-$callId',
+      command: CameraCommand(
+        type: CommandType.GYRO_RESET,
+      ),
+    ));
+  }
+
   Future<void> dispose() async {
     debugPrint('🗑️ [CONTROL] Disposing control service');
     _isConnected = false;
@@ -139,3 +205,4 @@ class LiveControlService {
     await _channel.shutdown();
   }
 }
+

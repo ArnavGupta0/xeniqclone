@@ -293,6 +293,32 @@ class WebRTCManager {
     }
   }
 
+  /// Set zoom level directly (absolute value)
+  Future<void> setZoomLevel(double level) async {
+    if (_localStream == null) return;
+
+    final videoTracks = _localStream!.getVideoTracks();
+    if (videoTracks.isEmpty) return;
+
+    final track = videoTracks.first;
+
+    try {
+      final newZoom = level.clamp(_minZoom, _maxZoom);
+
+      if ((newZoom - _currentZoom).abs() < 0.001) {
+        return; // No meaningful change
+      }
+
+      // Use Helper.setZoom - the correct flutter_webrtc API
+      await Helper.setZoom(track, newZoom);
+
+      _currentZoom = newZoom;
+      log('🔎 [ZOOM] Set zoom level: ${newZoom.toStringAsFixed(2)}');
+    } catch (e) {
+      log('⚠️ [ZOOM] Zoom not supported or failed: $e');
+    }
+  }
+
   /// Get local media stream
   MediaStream? get localStream => _localStream;
 

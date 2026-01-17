@@ -456,6 +456,12 @@ class SessionRepositoryImpl implements SessionRepository {
   }
 
   @override
+  Future<void> setZoomLevel(double level) async {
+    log('🔎 [SESSION] Setting zoom level: $level');
+    await _webrtcManager?.setZoomLevel(level);
+  }
+
+  @override
   Future<void> sendGestureCommand(Map<String, dynamic> command) async {
     log('🎮 [SESSION] Sending gesture command: $command');
     // TODO: Use ControlService.StreamControl for gestures

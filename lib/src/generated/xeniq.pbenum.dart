@@ -9,6 +9,21 @@
 import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class ControlModeType extends $pb.ProtobufEnum {
+  static const ControlModeType CONTROL_MODE_BUTTON = ControlModeType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'CONTROL_MODE_BUTTON');
+  static const ControlModeType CONTROL_MODE_GYRO = ControlModeType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'CONTROL_MODE_GYRO');
+
+  static const $core.List<ControlModeType> values = <ControlModeType> [
+    CONTROL_MODE_BUTTON,
+    CONTROL_MODE_GYRO,
+  ];
+
+  static final $core.Map<$core.int, ControlModeType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static ControlModeType? valueOf($core.int value) => _byValue[value];
+
+  const ControlModeType._($core.int v, $core.String n) : super(v, n);
+}
+
 class CommandType extends $pb.ProtobufEnum {
   static const CommandType UNKNOWN = CommandType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNKNOWN');
   static const CommandType ROTATE_LEFT = CommandType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ROTATE_LEFT');

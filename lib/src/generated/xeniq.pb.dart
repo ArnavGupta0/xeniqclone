@@ -1508,6 +1508,7 @@ enum ControlEvent_Payload {
   command, 
   gyro, 
   ack, 
+  state, 
   notSet
 }
 
@@ -1516,15 +1517,17 @@ class ControlEvent extends $pb.GeneratedMessage {
     3 : ControlEvent_Payload.command,
     4 : ControlEvent_Payload.gyro,
     5 : ControlEvent_Payload.ack,
+    6 : ControlEvent_Payload.state,
     0 : ControlEvent_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ControlEvent', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xeniq'), createEmptyInstance: create)
-    ..oo(0, [3, 4, 5])
+    ..oo(0, [3, 4, 5, 6])
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'callId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'senderId')
     ..aOM<CameraCommand>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'command', subBuilder: CameraCommand.create)
     ..aOM<GyroData>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gyro', subBuilder: GyroData.create)
     ..aOM<ControlAck>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ack', subBuilder: ControlAck.create)
+    ..aOM<CameraState>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'state', subBuilder: CameraState.create)
     ..hasRequiredFields = false
   ;
 
@@ -1535,6 +1538,7 @@ class ControlEvent extends $pb.GeneratedMessage {
     CameraCommand? command,
     GyroData? gyro,
     ControlAck? ack,
+    CameraState? state,
   }) {
     final _result = create();
     if (callId != null) {
@@ -1551,6 +1555,9 @@ class ControlEvent extends $pb.GeneratedMessage {
     }
     if (ack != null) {
       _result.ack = ack;
+    }
+    if (state != null) {
+      _result.state = state;
     }
     return _result;
   }
@@ -1628,14 +1635,112 @@ class ControlEvent extends $pb.GeneratedMessage {
   void clearAck() => clearField(5);
   @$pb.TagNumber(5)
   ControlAck ensureAck() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  CameraState get state => $_getN(5);
+  @$pb.TagNumber(6)
+  set state(CameraState v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasState() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearState() => clearField(6);
+  @$pb.TagNumber(6)
+  CameraState ensureState() => $_ensure(5);
+}
+
+class CameraState extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CameraState', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xeniq'), createEmptyInstance: create)
+    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'zoomLevel', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'anchorX', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'anchorY', $pb.PbFieldType.OF)
+    ..e<ControlModeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'mode', $pb.PbFieldType.OE, defaultOrMaker: ControlModeType.CONTROL_MODE_BUTTON, valueOf: ControlModeType.valueOf, enumValues: ControlModeType.values)
+    ..hasRequiredFields = false
+  ;
+
+  CameraState._() : super();
+  factory CameraState({
+    $core.double? zoomLevel,
+    $core.double? anchorX,
+    $core.double? anchorY,
+    ControlModeType? mode,
+  }) {
+    final _result = create();
+    if (zoomLevel != null) {
+      _result.zoomLevel = zoomLevel;
+    }
+    if (anchorX != null) {
+      _result.anchorX = anchorX;
+    }
+    if (anchorY != null) {
+      _result.anchorY = anchorY;
+    }
+    if (mode != null) {
+      _result.mode = mode;
+    }
+    return _result;
+  }
+  factory CameraState.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CameraState.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CameraState clone() => CameraState()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CameraState copyWith(void Function(CameraState) updates) => super.copyWith((message) => updates(message as CameraState)) as CameraState; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CameraState create() => CameraState._();
+  CameraState createEmptyInstance() => create();
+  static $pb.PbList<CameraState> createRepeated() => $pb.PbList<CameraState>();
+  @$core.pragma('dart2js:noInline')
+  static CameraState getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CameraState>(create);
+  static CameraState? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get zoomLevel => $_getN(0);
+  @$pb.TagNumber(1)
+  set zoomLevel($core.double v) { $_setFloat(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasZoomLevel() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearZoomLevel() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get anchorX => $_getN(1);
+  @$pb.TagNumber(2)
+  set anchorX($core.double v) { $_setFloat(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAnchorX() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAnchorX() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.double get anchorY => $_getN(2);
+  @$pb.TagNumber(3)
+  set anchorY($core.double v) { $_setFloat(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasAnchorY() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearAnchorY() => clearField(3);
+
+  @$pb.TagNumber(4)
+  ControlModeType get mode => $_getN(3);
+  @$pb.TagNumber(4)
+  set mode(ControlModeType v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasMode() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearMode() => clearField(4);
 }
 
 class CameraCommand extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CameraCommand', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xeniq'), createEmptyInstance: create)
     ..e<CommandType>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: CommandType.UNKNOWN, valueOf: CommandType.valueOf, enumValues: CommandType.values)
     ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'yaw', $pb.PbFieldType.OF)
-    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pitch', $pb.PbFieldType.OF)
     ..hasRequiredFields = false
   ;
 
@@ -1643,8 +1748,6 @@ class CameraCommand extends $pb.GeneratedMessage {
   factory CameraCommand({
     CommandType? type,
     $core.double? value,
-    $core.double? yaw,
-    $core.double? pitch,
   }) {
     final _result = create();
     if (type != null) {
@@ -1652,12 +1755,6 @@ class CameraCommand extends $pb.GeneratedMessage {
     }
     if (value != null) {
       _result.value = value;
-    }
-    if (yaw != null) {
-      _result.yaw = yaw;
-    }
-    if (pitch != null) {
-      _result.pitch = pitch;
     }
     return _result;
   }
@@ -1699,24 +1796,6 @@ class CameraCommand extends $pb.GeneratedMessage {
   $core.bool hasValue() => $_has(1);
   @$pb.TagNumber(2)
   void clearValue() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.double get yaw => $_getN(2);
-  @$pb.TagNumber(3)
-  set yaw($core.double v) { $_setFloat(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasYaw() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearYaw() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.double get pitch => $_getN(3);
-  @$pb.TagNumber(4)
-  set pitch($core.double v) { $_setFloat(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasPitch() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearPitch() => clearField(4);
 }
 
 class GyroData extends $pb.GeneratedMessage {

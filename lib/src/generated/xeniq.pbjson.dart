@@ -8,6 +8,17 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use controlModeTypeDescriptor instead')
+const ControlModeType$json = const {
+  '1': 'ControlModeType',
+  '2': const [
+    const {'1': 'CONTROL_MODE_BUTTON', '2': 0},
+    const {'1': 'CONTROL_MODE_GYRO', '2': 1},
+  ],
+};
+
+/// Descriptor for `ControlModeType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List controlModeTypeDescriptor = $convert.base64Decode('Cg9Db250cm9sTW9kZVR5cGUSFwoTQ09OVFJPTF9NT0RFX0JVVFRPThAAEhUKEUNPTlRST0xfTU9ERV9HWVJPEAE=');
 @$core.Deprecated('Use commandTypeDescriptor instead')
 const CommandType$json = const {
   '1': 'CommandType',
@@ -283,6 +294,7 @@ const ControlEvent$json = const {
     const {'1': 'command', '3': 3, '4': 1, '5': 11, '6': '.xeniq.CameraCommand', '9': 0, '10': 'command'},
     const {'1': 'gyro', '3': 4, '4': 1, '5': 11, '6': '.xeniq.GyroData', '9': 0, '10': 'gyro'},
     const {'1': 'ack', '3': 5, '4': 1, '5': 11, '6': '.xeniq.ControlAck', '9': 0, '10': 'ack'},
+    const {'1': 'state', '3': 6, '4': 1, '5': 11, '6': '.xeniq.CameraState', '9': 0, '10': 'state'},
   ],
   '8': const [
     const {'1': 'payload'},
@@ -290,20 +302,31 @@ const ControlEvent$json = const {
 };
 
 /// Descriptor for `ControlEvent`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List controlEventDescriptor = $convert.base64Decode('CgxDb250cm9sRXZlbnQSFwoHY2FsbF9pZBgBIAEoCVIGY2FsbElkEhsKCXNlbmRlcl9pZBgCIAEoCVIIc2VuZGVySWQSMAoHY29tbWFuZBgDIAEoCzIULnhlbmlxLkNhbWVyYUNvbW1hbmRIAFIHY29tbWFuZBIlCgRneXJvGAQgASgLMg8ueGVuaXEuR3lyb0RhdGFIAFIEZ3lybxIlCgNhY2sYBSABKAsyES54ZW5pcS5Db250cm9sQWNrSABSA2Fja0IJCgdwYXlsb2Fk');
+final $typed_data.Uint8List controlEventDescriptor = $convert.base64Decode('CgxDb250cm9sRXZlbnQSFwoHY2FsbF9pZBgBIAEoCVIGY2FsbElkEhsKCXNlbmRlcl9pZBgCIAEoCVIIc2VuZGVySWQSMAoHY29tbWFuZBgDIAEoCzIULnhlbmlxLkNhbWVyYUNvbW1hbmRIAFIHY29tbWFuZBIlCgRneXJvGAQgASgLMg8ueGVuaXEuR3lyb0RhdGFIAFIEZ3lybxIlCgNhY2sYBSABKAsyES54ZW5pcS5Db250cm9sQWNrSABSA2FjaxIqCgVzdGF0ZRgGIAEoCzISLnhlbmlxLkNhbWVyYVN0YXRlSABSBXN0YXRlQgkKB3BheWxvYWQ=');
+@$core.Deprecated('Use cameraStateDescriptor instead')
+const CameraState$json = const {
+  '1': 'CameraState',
+  '2': const [
+    const {'1': 'zoom_level', '3': 1, '4': 1, '5': 2, '10': 'zoomLevel'},
+    const {'1': 'anchor_x', '3': 2, '4': 1, '5': 2, '10': 'anchorX'},
+    const {'1': 'anchor_y', '3': 3, '4': 1, '5': 2, '10': 'anchorY'},
+    const {'1': 'mode', '3': 4, '4': 1, '5': 14, '6': '.xeniq.ControlModeType', '10': 'mode'},
+  ],
+};
+
+/// Descriptor for `CameraState`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List cameraStateDescriptor = $convert.base64Decode('CgtDYW1lcmFTdGF0ZRIdCgp6b29tX2xldmVsGAEgASgCUgl6b29tTGV2ZWwSGQoIYW5jaG9yX3gYAiABKAJSB2FuY2hvclgSGQoIYW5jaG9yX3kYAyABKAJSB2FuY2hvclkSKgoEbW9kZRgEIAEoDjIWLnhlbmlxLkNvbnRyb2xNb2RlVHlwZVIEbW9kZQ==');
 @$core.Deprecated('Use cameraCommandDescriptor instead')
 const CameraCommand$json = const {
   '1': 'CameraCommand',
   '2': const [
     const {'1': 'type', '3': 1, '4': 1, '5': 14, '6': '.xeniq.CommandType', '10': 'type'},
     const {'1': 'value', '3': 2, '4': 1, '5': 2, '10': 'value'},
-    const {'1': 'yaw', '3': 3, '4': 1, '5': 2, '10': 'yaw'},
-    const {'1': 'pitch', '3': 4, '4': 1, '5': 2, '10': 'pitch'},
   ],
 };
 
 /// Descriptor for `CameraCommand`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List cameraCommandDescriptor = $convert.base64Decode('Cg1DYW1lcmFDb21tYW5kEiYKBHR5cGUYASABKA4yEi54ZW5pcS5Db21tYW5kVHlwZVIEdHlwZRIUCgV2YWx1ZRgCIAEoAlIFdmFsdWUSEAoDeWF3GAMgASgCUgN5YXcSFAoFcGl0Y2gYBCABKAJSBXBpdGNo');
+final $typed_data.Uint8List cameraCommandDescriptor = $convert.base64Decode('Cg1DYW1lcmFDb21tYW5kEiYKBHR5cGUYASABKA4yEi54ZW5pcS5Db21tYW5kVHlwZVIEdHlwZRIUCgV2YWx1ZRgCIAEoAlIFdmFsdWU=');
 @$core.Deprecated('Use gyroDataDescriptor instead')
 const GyroData$json = const {
   '1': 'GyroData',
